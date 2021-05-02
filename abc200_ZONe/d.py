@@ -1,19 +1,21 @@
-S = input()
-t = str()
+from collections import deque
+
+t = deque()
 flip = False
-for s in S:
+
+for s in input():
     if s=='R':
         flip = not flip
-    else:
-        if flip:
-            t = s+t
-            if t[:2:] == s+s:
-                t = t[2::]
-
+    elif flip:
+        if t and (t[0] == s):
+            t.popleft()
         else:
-            t = t+s
-            if t[-2::] == s+s:
-                t = t[:-2:]
+            t.appendleft(s)
+    else:
+        if t and (t[-1] == s):
+            t.pop()
+        else:
+            t.append(s)
 if flip:
-    t = t[::-1]
-print(t)
+    t = reversed(t)
+print(''.join(t))
