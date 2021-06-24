@@ -1,13 +1,17 @@
-def solve():
-    n = int(input())
-    a = list(map(int, input().split()))
-    b = list(map(int, input().split()))
-    c = list(map(int, input().split()))
+import collections
 
-    ans = 0
-    for i in set(a):
-        for j in set(c):
-            if i == b[j-1]:
-                ans += a.count(i) * c.count(j)
-    print(ans)
-solve()
+n = int(input())
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+c = list(map(int, input().split()))
+
+d = []
+for i in range(n):
+    d.append(b[c[i]-1])
+
+ans = 0
+a_count = collections.Counter(a)
+d_count = collections.Counter(d)
+for key in a_count:
+    ans += a_count[key] * d_count[key]
+print(ans)
