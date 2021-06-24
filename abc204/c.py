@@ -1,24 +1,22 @@
-n, m = map(int, input().split())
-graph = {}
-for i in range(m):
-    temp = list(map(int, input().split()))
-    if temp[0] not in graph.keys():
-        graph[temp[0]] = []
-    graph[temp[0]].append(temp[1])
+import sys
+sys.setrecursionlimit(10000)
 
-def solve(key, went_location):
-    new_location = set()
-    temp_ans = 0
-    for loc in graph[key]:
-        if loc not in went_location:
-            new_location.add(loc)
-            temp_ans += 1
-    for loc in new_location:
-        temp_ans += solve(loc, went_location)
-    return temp_ans
+n, m = map(int, input().split())
+c = [[] for _ in range(n)]
+for i in range(m):
+    a, b = map(int, input().split())
+    c[a-1].append(b-1)
+
+def dfs(v):
+    if temp[v]:
+        return
+    temp[v] = True
+    for i in c[v]:
+        dfs(i)
 
 ans = 0
-for key in graph.keys():
-    went_location = set([key])
-    ans += solve(key, went_location)
+for i in range(n):
+    temp = [False]*n
+    dfs(i)
+    ans += sum(temp)
 print(ans)
